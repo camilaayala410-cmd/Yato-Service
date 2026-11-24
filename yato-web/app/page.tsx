@@ -49,7 +49,7 @@ export default function Home() {
           </div>
 
           {/* MASCOTA OFICIAL */}
-          <div className="relative mx-auto flex aspect-square w-full max-w-[480px] items-center justify-center">
+          <div className="relative mx-auto flex aspect-square w-full max-w-[480px] -translate-x-5 items-center justify-center">
             <div className="absolute inset-[5%] rounded-full border border-purple-400/20" />
             <div className="absolute inset-[13%] rounded-full border border-lime-300/15" />
             <div className="absolute inset-[20%] rounded-full bg-purple-500/10 blur-3xl" />
