@@ -1,8 +1,31 @@
+
 @import "tailwindcss";
 
+/* ========================================
+   MULGYMO LAB SCAN
+   GLOBAL DESIGN SYSTEM
+======================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+
+  --background: #11111a;
+  --foreground: #f0edf6;
+
+  --lab-black: #11111a;
+  --lab-graphite: #242431;
+  --lab-lime: #b7f36b;
+  --lab-purple: #a78bfa;
+  --lab-white: #f0edf6;
+
+  --lab-muted: #aaa8b7;
+  --lab-border: rgba(167, 139, 250, 0.2);
+
+  --lab-glow-lime: rgba(183, 243, 107, 0.22);
+  --lab-glow-purple: rgba(167, 139, 250, 0.22);
+
+  --radius-card: 16px;
+  --radius-button: 10px;
 }
 
 @theme inline {
@@ -12,15 +35,443 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ========================================
+   RESET Y CONFIGURACIÓN GENERAL
+======================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
+  scrollbar-color: var(--lab-purple) var(--lab-black);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  min-height: 100vh;
+  margin: 0;
+  background: var(--lab-black);
+  color: var(--lab-white);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ========================================
+   FONDO: LABORATORIO DIGITAL
+   SIN CUADRÍCULAS NI PATRONES
+======================================== */
+
+.lab-background {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  overflow: hidden;
+
+  background-color: #11111a !important;
+
+  background-image:
+    radial-gradient(
+      ellipse at 12% 18%,
+      rgba(125, 72, 220, 0.30),
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 88% 72%,
+      rgba(93, 190, 115, 0.20),
+      transparent 40%
+    ),
+    radial-gradient(
+      ellipse at 55% 5%,
+      rgba(40, 160, 180, 0.16),
+      transparent 38%
+    ),
+    radial-gradient(
+      ellipse at 45% 100%,
+      rgba(125, 75, 190, 0.18),
+      transparent 45%
+    ),
+    linear-gradient(
+      135deg,
+      #11111a 0%,
+      #191725 50%,
+      #111820 100%
+    ) !important;
+}
+
+/* ========================================
+   PARTÍCULAS LUMINOSAS
+======================================== */
+
+.lab-background::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(
+      3px 3px at 12% 22%,
+      rgba(183, 243, 107, 0.85),
+      transparent 100%
+    ),
+    radial-gradient(
+      3px 3px at 75% 18%,
+      rgba(167, 139, 250, 0.9),
+      transparent 100%
+    ),
+    radial-gradient(
+      4px 4px at 42% 68%,
+      rgba(183, 243, 107, 0.65),
+      transparent 100%
+    ),
+    radial-gradient(
+      3px 3px at 88% 83%,
+      rgba(167, 139, 250, 0.8),
+      transparent 100%
+    ),
+    radial-gradient(
+      3px 3px at 25% 90%,
+      rgba(80, 220, 190, 0.75),
+      transparent 100%
+    ),
+    radial-gradient(
+      2px 2px at 60% 42%,
+      rgba(255, 255, 255, 0.7),
+      transparent 100%
+    );
+
+  background-size:
+    310px 290px,
+    390px 340px,
+    270px 310px,
+    420px 370px,
+    350px 400px,
+    230px 260px;
+
+  animation: lab-particles 35s linear infinite;
+}
+
+/* ========================================
+   LUCES Y ONDAS DE ENERGÍA
+======================================== */
+
+.lab-background::after {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  z-index: 0;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(
+      ellipse at 20% 25%,
+      rgba(143, 85, 255, 0.30),
+      transparent 30%
+    ),
+    radial-gradient(
+      ellipse at 78% 65%,
+      rgba(183, 243, 107, 0.20),
+      transparent 28%
+    ),
+    radial-gradient(
+      ellipse at 55% 5%,
+      rgba(57, 193, 194, 0.20),
+      transparent 32%
+    ),
+    radial-gradient(
+      ellipse at 40% 85%,
+      rgba(111, 73, 190, 0.22),
+      transparent 34%
+    );
+
+  filter: blur(65px);
+
+  animation: lab-energy 18s ease-in-out infinite alternate;
+}
+
+/* ========================================
+   CONTENIDO SOBRE EL FONDO
+======================================== */
+
+.lab-background > .lab-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ========================================
+   ANIMACIONES
+======================================== */
+
+@keyframes lab-particles {
+  from {
+    background-position:
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0;
+  }
+
+  to {
+    background-position:
+      100px -80px,
+      -90px 120px,
+      70px -100px,
+      -110px 90px,
+      120px -70px,
+      -80px 100px;
+  }
+}
+
+@keyframes lab-energy {
+  from {
+    transform: translate3d(-2%, -1%, 0) scale(0.95);
+    opacity: 0.75;
+  }
+
+  to {
+    transform: translate3d(2%, 2%, 0) scale(1.12);
+    opacity: 1;
+  }
+}
+
+/* ========================================
+   CONTENEDORES Y SUPERFICIES
+======================================== */
+
+.lab-panel {
+  background: rgba(36, 36, 49, 0.76);
+  border: 1px solid var(--lab-border);
+  border-radius: var(--radius-card);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.lab-panel-hover {
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.lab-panel-hover:hover {
+  border-color: rgba(183, 243, 107, 0.4);
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.2),
+    0 0 20px rgba(183, 243, 107, 0.055);
+}
+
+/* ========================================
+   TIPOGRAFÍA
+======================================== */
+
+.lab-title {
+  color: var(--lab-white);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.lab-subtitle {
+  color: var(--lab-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.lab-label {
+  color: var(--lab-purple);
+  font-family: monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.lab-accent {
+  color: var(--lab-lime);
+}
+
+.lab-purple {
+  color: var(--lab-purple);
+}
+
+/* ========================================
+   BOTONES
+======================================== */
+
+.lab-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 10px 18px;
+
+  border: 1px solid transparent;
+  border-radius: var(--radius-button);
+
+  background: var(--lab-lime);
+  color: var(--lab-black);
+
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.lab-button:hover {
+  background: #c9ff83;
+
+  box-shadow:
+    0 0 18px rgba(183, 243, 107, 0.25);
+
+  transform: translateY(-2px);
+}
+
+.lab-button-secondary {
+  background: var(--lab-graphite);
+  border-color: var(--lab-border);
+  color: var(--lab-white);
+}
+
+.lab-button-secondary:hover {
+  background: rgba(167, 139, 250, 0.16);
+  border-color: var(--lab-purple);
+}
+
+/* ========================================
+   CAMPOS DE FORMULARIO
+======================================== */
+
+.lab-input {
+  width: 100%;
+  padding: 11px 14px;
+
+  background: rgba(21, 21, 29, 0.85);
+  color: var(--lab-white);
+
+  border: 1px solid var(--lab-border);
+  border-radius: 10px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.lab-input:focus {
+  border-color: var(--lab-lime);
+
+  box-shadow:
+    0 0 0 3px rgba(183, 243, 107, 0.1);
+}
+
+.lab-input::placeholder {
+  color: #777584;
+}
+
+/* ========================================
+   EFECTOS Y DETALLES
+======================================== */
+
+.lab-glow {
+  box-shadow:
+    0 0 20px rgba(183, 243, 107, 0.12);
+}
+
+.lab-glow-purple {
+  box-shadow:
+    0 0 20px rgba(167, 139, 250, 0.15);
+}
+
+.lab-divider {
+  height: 1px;
+  border: 0;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(167, 139, 250, 0.4),
+    transparent
+  );
+}
+
+.lab-dot {
+  width: 7px;
+  height: 7px;
+
+  display: inline-block;
+  border-radius: 50%;
+
+  background: var(--lab-lime);
+
+  box-shadow:
+    0 0 10px rgba(183, 243, 107, 0.7);
+}
+
+/* ========================================
+   SCROLLBAR
+======================================== */
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--lab-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #51446f;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--lab-purple);
+}
+
+/* ========================================
+   SELECCIÓN DE TEXTO
+======================================== */
+
+::selection {
+  background: rgba(183, 243, 107, 0.3);
+  color: white;
+}
+
+/* ========================================
+   ACCESIBILIDAD
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 640px) {
+  .lab-panel {
+    border-radius: 12px;
+  }
 }
