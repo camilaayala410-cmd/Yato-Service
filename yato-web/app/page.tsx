@@ -1,4 +1,4 @@
-
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -48,31 +48,24 @@ export default function Home() {
             </div>
           </div>
 
-          {/* ESPACIO RESERVADO PARA LA MASCOTA */}
-          <div className="relative mx-auto flex aspect-square w-full max-w-[420px] items-center justify-center">
-            <div className="absolute inset-[8%] rounded-full border border-purple-400/20" />
+          {/* MASCOTA OFICIAL */}
+          <div className="relative mx-auto flex aspect-square w-full max-w-[480px] items-center justify-center">
+            <div className="absolute inset-[5%] rounded-full border border-purple-400/20" />
+            <div className="absolute inset-[13%] rounded-full border border-lime-300/15" />
+            <div className="absolute inset-[20%] rounded-full bg-purple-500/10 blur-3xl" />
 
-            <div className="absolute inset-[17%] rounded-full border border-lime-300/20" />
+            <Image
+              src="/mulgymo-mascota.png"
+              alt="Mascota felina de Mulgymo Lab Scan, rodeada de elementos de laboratorio"
+              width={1024}
+              height={1024}
+              priority
+              className="relative z-10 h-auto w-full object-contain drop-shadow-[0_0_35px_rgba(167,139,250,0.2)]"
+            />
 
-            <div className="absolute inset-[25%] rounded-full bg-purple-500/10 blur-3xl" />
-
-            <div className="relative flex h-[72%] w-[72%] flex-col items-center justify-center rounded-[2.5rem] border border-purple-400/30 bg-[#242431]/65 shadow-[0_0_60px_rgba(167,139,250,0.14)] backdrop-blur-xl">
-              <span className="text-6xl text-lime-300">⚗</span>
-
-              <p className="mt-5 text-xs font-bold uppercase tracking-[0.25em] text-purple-300">
-                Lab specimen
-              </p>
-
-              <p className="mt-2 text-sm text-gray-400">
-                Mascota en preparación
-              </p>
-            </div>
-
-            <span className="absolute right-[12%] top-[17%] h-3 w-3 rounded-full bg-lime-300 shadow-[0_0_18px_#b7f36b]" />
-
-            <span className="absolute bottom-[18%] left-[12%] h-2.5 w-2.5 rounded-full bg-purple-300 shadow-[0_0_18px_#a78bfa]" />
-
-            <span className="absolute right-[18%] bottom-[25%] h-2 w-2 rounded-full bg-cyan-300 shadow-[0_0_15px_#67e8f9]" />
+            <span className="absolute right-[12%] top-[17%] z-20 h-3 w-3 rounded-full bg-lime-300 shadow-[0_0_18px_#b7f36b]" />
+            <span className="absolute bottom-[18%] left-[12%] z-20 h-2.5 w-2.5 rounded-full bg-purple-300 shadow-[0_0_18px_#a78bfa]" />
+            <span className="absolute right-[18%] bottom-[25%] z-20 h-2 w-2 rounded-full bg-cyan-300 shadow-[0_0_15px_#67e8f9]" />
           </div>
         </div>
 
