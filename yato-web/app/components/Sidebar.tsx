@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -15,18 +14,49 @@ const navigation = [
 export default function Sidebar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [canManage, setCanManage] = useState(false);
 
   useEffect(() => {
     let mounted = true;
 
+    async function loadAccess(session: Awaited<ReturnType<typeof supabase.auth.getSession>>["data"]["session"]) {
+      if (!mounted) return;
+
+      setIsLoggedIn(!!session);
+
+      if (!session) {
+        setCanManage(false);
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", session.user.id);
+
+      if (!mounted) return;
+
+      if (error) {
+        console.error("Error al consultar permisos:", error);
+        setCanManage(false);
+        return;
+      }
+
+      setCanManage(
+        (data || []).some((item) =>
+          ["owner", "admin", "moderator"].includes(item.role)
+        )
+      );
+    }
+
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (mounted) setIsLoggedIn(!!session);
+      void loadAccess(session);
     });
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      setIsLoggedIn(!!session);
+      void loadAccess(session);
     });
 
     return () => {
@@ -86,6 +116,15 @@ export default function Sidebar() {
             LAB SCAN
           </span>
         </Link>
+
+        {canManage && (
+          <Link
+            href="/panel"
+            className="ml-2 rounded-lg border border-lime-300/30 bg-lime-300/10 px-4 py-2 text-sm font-semibold text-lime-300 transition hover:border-lime-300/60 hover:bg-lime-300/20"
+          >
+            Administrar
+          </Link>
+        )}
       </header>
 
       {menuOpen && (
