@@ -6,11 +6,11 @@ import { supabase } from "@/lib/supabase";
 
 function LoginForm() {
   const searchParams = useSearchParams();
-  const requestedRedirect = searchParams.get("redirect") || "/panel";
+  const requestedRedirect = searchParams.get("redirect") || "/";
   const redirectTo =
     requestedRedirect.startsWith("/") && !requestedRedirect.startsWith("//")
       ? requestedRedirect
-      : "/panel";
+      : "/";
 
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
