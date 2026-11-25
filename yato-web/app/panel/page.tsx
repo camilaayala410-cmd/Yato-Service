@@ -154,6 +154,21 @@ export default function PanelPage() {
                   Administrar géneros →
                 </span>
               </Link>
+
+              {isOwner && (
+                <Link
+                  href="/panel/usuarios"
+                  className="rounded-xl border border-lime-300/20 bg-[#191920] p-6 transition hover:border-lime-300/60 hover:bg-lime-300/5"
+                >
+                  <h4 className="text-lg font-semibold">Usuarios y permisos</h4>
+                  <p className="mt-2 text-sm text-gray-400">
+                    Consultar cuentas y administrar roles de acceso.
+                  </p>
+                  <span className="mt-4 inline-block text-sm text-lime-300">
+                    Administrar usuarios →
+                  </span>
+                </Link>
+              )}
             </div>
           </section>
         )}
