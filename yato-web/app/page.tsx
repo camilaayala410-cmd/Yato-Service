@@ -60,7 +60,7 @@ export default function Home() {
               width={1536}
               height={1024}
               priority
-              className="relative z-10 -translate-x-8 h-auto w-full object-contain drop-shadow-[0_0_35px_rgba(167,139,250,0.2)] [mask-image:radial-gradient(ellipse_at_center,black_42%,rgba(0,0,0,0.92)_57%,transparent_78%)]"
+              className="relative z-10 -translate-x-11 h-auto w-full object-contain drop-shadow-[0_0_35px_rgba(167,139,250,0.2)] [mask-image:radial-gradient(ellipse_at_center,black_42%,rgba(0,0,0,0.92)_57%,transparent_78%)]"
             />
 
             <span className="absolute right-[12%] top-[17%] z-20 h-3 w-3 rounded-full bg-lime-300 shadow-[0_0_18px_#b7f36b]" />
