@@ -34,7 +34,17 @@ export default function PanelPage() {
       if (error) {
         console.error("Error al consultar los roles:", error);
       } else {
-        setRoles((data || []).map((item) => item.role as UserRole));
+        const userRoles = (data || []).map((item) => item.role as UserRole);
+        setRoles(userRoles);
+
+        const canAccessPanel = userRoles.some((role) =>
+          ["owner", "admin", "moderator"].includes(role)
+        );
+
+        if (!canAccessPanel) {
+          window.location.href = "/";
+          return;
+        }
       }
 
       setLoading(false);
