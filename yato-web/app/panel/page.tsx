@@ -33,18 +33,20 @@ export default function PanelPage() {
 
       if (error) {
         console.error("Error al consultar los roles:", error);
-      } else {
-        const userRoles = (data || []).map((item) => item.role as UserRole);
-        setRoles(userRoles);
+        window.location.href = "/";
+        return;
+      }
 
-        const canAccessPanel = userRoles.some((role) =>
-          ["owner", "admin", "moderator"].includes(role)
-        );
+      const userRoles = (data || []).map((item) => item.role as UserRole);
+      setRoles(userRoles);
 
-        if (!canAccessPanel) {
-          window.location.href = "/";
-          return;
-        }
+      const canAccessPanel = userRoles.some((role) =>
+        ["owner", "admin", "moderator"].includes(role)
+      );
+
+      if (!canAccessPanel) {
+        window.location.href = "/";
+        return;
       }
 
       setLoading(false);
