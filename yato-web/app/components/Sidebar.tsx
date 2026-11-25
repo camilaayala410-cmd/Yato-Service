@@ -2,7 +2,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
 
 const navigation = [
   { label: "Inicio", href: "/", icon: "⌂" },
@@ -13,6 +14,42 @@ const navigation = [
 
 export default function Sidebar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (mounted) setIsLoggedIn(!!session);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(!!session);
+    });
+
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  async function handleAuthAction() {
+    setMenuOpen(false);
+
+    if (isLoggedIn) {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error("No se pudo cerrar la sesión:", error);
+        return;
+      }
+      window.location.href = "/";
+      return;
+    }
+
+    window.location.href = "/login";
+  }
 
   return (
     <>
@@ -94,13 +131,13 @@ export default function Sidebar() {
           </p>
         </div>
 
-        <Link
-          href="/login"
-          onClick={() => setMenuOpen(false)}
+        <button
+          type="button"
+          onClick={handleAuthAction}
           className="mt-5 rounded-lg border border-white/10 px-4 py-3 text-center text-sm text-gray-300 transition hover:border-lime-300/30 hover:text-lime-300"
         >
-          Iniciar sesión
-        </Link>
+          {isLoggedIn ? "Cerrar sesión" : "Iniciar sesión"}
+        </button>
       </aside>
     </>
   );
